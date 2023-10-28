@@ -21,7 +21,7 @@ function FilterElement({
 }) {
   const renderGroupItems = () =>
     [
-      "Clean Room",
+      "Cleanroom",
       "Mask Making",
       "Thin Film Deposition",
       "Oven",

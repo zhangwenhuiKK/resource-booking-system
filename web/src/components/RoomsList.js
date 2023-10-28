@@ -2,7 +2,7 @@ import React from "react";
 import RoomRow from "./RoomRow";
 import { roomSorter } from "../helpers/sorter";
 const CATEGORIES = [
-  "Clean Room",
+  "Cleanroom",
   "Mask Making",
   "Thin Film Deposition",
   "Oven",
@@ -34,7 +34,7 @@ const RoomsList = (props) => {
                 scope="col"
                 className="table__cell--header  table__cell--width table__cell--align-left"
               >
-                {category === "Clean Room" ? "Room Slots" : "Instruments"}
+                {category === "Cleanroom" ? "Room Slots" : "Instruments"}
               </th>
               <th scope="col" className="table__cell--header">
                 8am

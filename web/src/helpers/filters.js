@@ -3,7 +3,7 @@ import { formatTime, timeSelectOptions } from "../helpers/bookingForm";
 
 // Initial room filter parameters
 export const CategoryParams = [
-  { name: "Clean Room", value: false },
+  { name: "Cleanroom", value: false },
   { name: "Mask Making", value: false },
   { name: "Thin Film Deposition", value: false },
   { name: "Oven", value: false },
