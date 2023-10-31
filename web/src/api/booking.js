@@ -52,7 +52,7 @@ export function makeBooking(data, existingBookings) {
   // Save the booking to the database and return the booking if there are no clashes and the new booking time is not in the past
   if (!bookingClash && validDate && validRecurring) {
     return api
-      .put(`http://localhost:7000/rooms/${data.roomId}`, {
+      .put(`/rooms/${data.roomId}`, {
         bookingStart: bookingStart,
         bookingEnd: bookingEnd,
         group: data.group,
@@ -108,18 +108,15 @@ export function editBooking(data, existingBookings) {
   // Save the booking to the database and return the booking if there are no clashes and the new booking time is not in the past
   if (!bookingClash && validDate && validRecurring) {
     return api
-      .put(
-        `http://localhost:7000/rooms/edit/${data.roomId}/${data.bookingId}`,
-        {
-          bookingStart: bookingStart,
-          bookingEnd: bookingEnd,
-          group: data.group,
-          purpose: data.purpose,
-          roomId: data.roomId,
-          recurring: data.recurringData,
-          params: data.params,
-        }
-      )
+      .put(`/rooms/edit/${data.roomId}/${data.bookingId}`, {
+        bookingStart: bookingStart,
+        bookingEnd: bookingEnd,
+        group: data.group,
+        purpose: data.purpose,
+        roomId: data.roomId,
+        recurring: data.recurringData,
+        params: data.params,
+      })
       .then((res) => res.data)
       .catch((err) => alert(err));
   }
@@ -127,9 +124,7 @@ export function editBooking(data, existingBookings) {
 
 // Delete a room booking
 export function deleteBooking(roomId, bookingId) {
-  return api
-    .delete(`http://localhost:7000/rooms/${roomId}/${bookingId}`)
-    .then((res) => res.data);
+  return api.delete(`/rooms/${roomId}/${bookingId}`).then((res) => res.data);
 }
 
 export function updateStateRoom(self, updatedRoom, loadMyBookings) {

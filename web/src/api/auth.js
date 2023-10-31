@@ -4,7 +4,7 @@ import { getDecodedToken } from "./token";
 // Sends a POST request to /auth/sign-up on the server, with first name, last name, email & password registering the user and returning the JWT
 export function signUp({ firstName, lastName, email, password }) {
   return api
-    .post("http://localhost:7000/auth/sign-up", {
+    .post("/auth/sign-up", {
       firstName,
       lastName,
       email,
@@ -21,7 +21,7 @@ export function signUp({ firstName, lastName, email, password }) {
 // Belonging to the user with supplied credentials
 export function signIn({ email, password }) {
   return api
-    .post("http://localhost:7000/auth", { email, password })
+    .post("/auth", { email, password })
     .then((res) => {
       const token = res.data.token;
       setToken(token);
