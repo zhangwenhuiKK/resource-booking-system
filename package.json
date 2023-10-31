@@ -1,0 +1,14 @@
+{
+  "name": "resource-booking-system",
+  "version": "1.0.0",
+  "description": "Application for booking resources",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "install-server": "cd api && yarn install",
+    "start-server": "cd api && yarn dev",
+    "install-client": "cd web && yarn install",
+    "build-client": "cd web && yarn build",
+    "start-client": "cd web && yarn start"
+  }
+}
