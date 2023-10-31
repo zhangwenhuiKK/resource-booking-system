@@ -15,7 +15,7 @@ const rowMapper = (dayHours, props) => {
     // Add a <td> element that indicates the time slot is available
     if (typeof bookingData == "number") {
       tableRow.push(
-        <td className="table__cell--available">
+        <td className="table__cell--available" key={i}>
           <Link
             to="/createbooking"
             onClick={() => {
@@ -43,7 +43,7 @@ const rowMapper = (dayHours, props) => {
         // <table className="table--booking--split">
         //   <tbody>
         //     <tr>
-        <td className={`table__cell table__cell--booked`}>
+        <td className={`table__cell table__cell--booked`} key={i}>
           <span
             onClick={() => props.onShowBooking(firstBookingData)}
             className={`table__link--booked table__cell--${firstBookingData.group // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
@@ -72,7 +72,7 @@ const rowMapper = (dayHours, props) => {
       // situation - first half hour booked
     } else if (bookingData.firstHalfHour) {
       tableRow.push(
-        <td className={`table__cell table__cell--booked `}>
+        <td className={`table__cell table__cell--booked `} key={i}>
           <span
             onClick={() => props.onShowBooking(bookingData)}
             className={`table__link--booked table__cell--${bookingData.group // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
@@ -95,7 +95,7 @@ const rowMapper = (dayHours, props) => {
     } else if (bookingData.secondHalfHour) {
       // situation - second half hour booked
       tableRow.push(
-        <td className={`table__cell table__cell--booked `}>
+        <td className={`table__cell table__cell--booked `} key={i}>
           <Link
             to="/createbooking"
             onClick={() => {
@@ -118,7 +118,7 @@ const rowMapper = (dayHours, props) => {
     } else if (bookingData.duration >= 1) {
       // situation - whole hour booked
       tableRow.push(
-        <td className={`table__cell table__cell--booked `}>
+        <td className={`table__cell table__cell--booked `} key={i}>
           <span
             onClick={() => props.onShowBooking(bookingData)}
             className={`table__link--booked table__cell--${bookingData.group // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)

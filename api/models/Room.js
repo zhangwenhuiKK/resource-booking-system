@@ -65,6 +65,7 @@ bookingSchema.path('bookingStart').validate(function(value) {
 const roomSchema = new Schema({
   name: { type: String, index: true, required: true },
   category: { type: String, required: true },
+  description: { type: String, required: false },
   feature:{},
   params: [Object], //[{name:String, field:String}]
   bookings: [bookingSchema]

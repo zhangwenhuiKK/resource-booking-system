@@ -1,15 +1,16 @@
-import React, { Fragment, useMemo } from "react";
+import React, { Fragment, useMemo, useState } from "react";
 import BookingFormTable from "./BookingFormTable";
 import Calendar from "./Calendar";
 import moment from "moment";
 import momentTimezone from "moment-timezone";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Button from "./Button";
 import {
   formatTime,
   startTimeSelectOptions,
   endTimeSelectOptions,
 } from "../helpers/bookingForm";
+import ConfirmationModal from "./ConfirmationModal";
 
 function BookingForm({
   onEditBooking,
@@ -24,6 +25,8 @@ function BookingForm({
   onToggleRecurring,
 }) {
   const editingMode = window.history.state?.usr?.editingMode;
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [tempFormData, setTempFormData] = useState();
 
   //Read values from booking details if in editing mode
   const defaultValues = useMemo(() => {
@@ -45,6 +48,66 @@ function BookingForm({
     return res;
   }, [selectedBooking]);
 
+  const onSaveBooking = (formData) => {
+    setIsConfirmationModalOpen(false);
+    // Extract date array from current date in state
+    const dateArray = moment(date)
+      .format("Y M D")
+      .split(" ")
+      .map((item) => parseInt(item, 10));
+    dateArray[1] = dateArray[1] - 1;
+    // Data from input
+    const //formData = event.target.elements,
+      roomId = roomData._id,
+      instrumentParams = roomData.params || [];
+    // startDate data
+    const startTime = formatTime(formData.startTime.value);
+    const startDate = [...dateArray, ...startTime];
+    // endDate data
+    const endTime = formatTime(formData.endTime.value);
+    const endDate = [...dateArray, ...endTime];
+    // Booking specifics
+    const group = formData.group.value;
+    let recurringEnd = handleEndDate(
+      formData.recurringEndDate?.value?.split("-")
+    );
+    const recurringType = formData?.recurring?.value || "none";
+    let recurringData = handleRecurringData(recurringType, recurringEnd);
+    const purpose = formData.purpose?.value;
+    const description = formData.description?.value;
+    //more params
+    const otherParams = [];
+    instrumentParams.forEach((param) => {
+      const field = param?.field;
+      if (formData[field]?.value) {
+        otherParams.push({
+          field,
+          value: formData[field]?.value,
+        });
+      }
+    });
+    //
+    editingMode
+      ? onEditBooking({
+          bookingId: selectedBooking._id,
+          startDate,
+          endDate,
+          group,
+          purpose,
+          roomId,
+          recurringData,
+          params: otherParams,
+        })
+      : onMakeBooking({
+          startDate,
+          endDate,
+          group,
+          purpose,
+          roomId,
+          recurringData,
+          params: otherParams,
+        });
+  };
   const handleEndDate = (dateArray) => {
     let recurringEndDate = [];
     if (Array.isArray(dateArray)) {
@@ -114,66 +177,12 @@ function BookingForm({
             className="content__form"
             onSubmit={(event) => {
               event.preventDefault();
-              // Extract date array from current date in state
-              const dateArray = moment(date)
-                .format("Y M D")
-                .split(" ")
-                .map((item) => parseInt(item, 10));
-              dateArray[1] = dateArray[1] - 1;
-              // Data from input
-              const formData = event.target.elements,
-                roomId = roomData._id,
-                instrumentParams = roomData.params || [];
-              // startDate data
-              const startTime = formatTime(formData.startTime.value);
-              const startDate = [...dateArray, ...startTime];
-              // endDate data
-              const endTime = formatTime(formData.endTime.value);
-              const endDate = [...dateArray, ...endTime];
-              // Booking specifics
-              const group = formData.group.value;
-              let recurringEnd = handleEndDate(
-                formData.recurringEndDate?.value?.split("-")
-              );
-              const recurringType = formData?.recurring?.value || "none";
-              let recurringData = handleRecurringData(
-                recurringType,
-                recurringEnd
-              );
-              const purpose = formData.purpose?.value;
-              const description = formData.description?.value;
-              //more params
-              const otherParams = [];
-              instrumentParams.forEach((param) => {
-                const field = param?.field;
-                if (formData[field]?.value) {
-                  otherParams.push({
-                    field,
-                    value: formData[field]?.value,
-                  });
-                }
-              });
-              //
-              editingMode
-                ? onEditBooking({
-                    bookingId: selectedBooking._id,
-                    startDate,
-                    endDate,
-                    group,
-                    purpose,
-                    roomId,
-                    recurringData,
-                    params: otherParams,
-                  })
-                : onMakeBooking({
-                    startDate,
-                    endDate,
-                    group,
-                    purpose,
-                    roomId,
-                    recurringData,
-                    params: otherParams,
-                  });
+              if (roomData.description) {
+                setTempFormData(event.target.elements);
+                setIsConfirmationModalOpen(true);
+              } else {
+                onSaveBooking(event.target.elements);
+              }
             }}
           >
             <h3 className="header__heading header__heading--column making__booking__form__header">
@@ -326,6 +335,12 @@ function BookingForm({
           </form>
         </div>
       </div>
+      <ConfirmationModal
+        isModalOpen={isConfirmationModalOpen}
+        onCloseConfirmation={() => setIsConfirmationModalOpen(false)}
+        onConfirm={() => onSaveBooking(tempFormData)}
+        content={roomData.description}
+      />
     </Fragment>
   );
 }

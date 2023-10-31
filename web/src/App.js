@@ -125,13 +125,15 @@ function App() {
         return room;
       }
     });
-    const updatedSelectedBooking = updatedRoom?.bookings?.find(
-      (b) =>
-        b.roomId === selectedBooking.roomId && b._id === selectedBooking?._id
-    );
-    setSelectedBooking(updatedSelectedBooking);
     setRoomData(updatedRoomData);
     setCurrentRoomm(updatedRoom);
+    const updatedSelectedBooking = updatedRoom?.bookings?.find(
+      (b) =>
+        b.roomId === selectedBooking?.roomId && b._id === selectedBooking?._id
+    );
+    if (updatedSelectedBooking) {
+      setSelectedBooking(updatedSelectedBooking);
+    }
     //loadMyBookings();
   };
 

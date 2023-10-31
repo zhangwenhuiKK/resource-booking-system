@@ -27,9 +27,7 @@ function BookingElement({ bookingData, onDeleteBooking, roomData }) {
           From {startTime} to {endTime}
         </p>
         <p>Duration {bookingData.duration}hrs</p>
-        <p>
-          Level {roomInfo.floor}, {roomInfo.name}
-        </p>
+        <p>{roomInfo.name}</p>
       </div>
       <div className="booking__innerbox--right">
         <Button

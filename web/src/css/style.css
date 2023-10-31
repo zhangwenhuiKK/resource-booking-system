@@ -94,7 +94,6 @@
   -webkit-box-shadow: 0px 2px 5px 0px #cecece;
   box-shadow: 0px 2px 5px 0px #cecece;
   width: 30rem;
-  padding: 0 5.8rem;
   max-height: 850px;
   position: relative;
   overflow: auto;
@@ -104,7 +103,7 @@
   top: 0;
   background: #fafafa;
   margin: 0;
-  padding: 1em;
+  padding: 1.5rem 5.8rem;
 }
 .form__input--text {
   border: 0.1rem solid #a5a5a5;
@@ -386,6 +385,7 @@ td.rdtYear:hover {
   min-width: 50rem;
   padding: 3rem 6rem;
   outline: none;
+  max-width: 1000px;
 }
 .modal__title {
   margin: 1.5rem 0;
@@ -734,6 +734,7 @@ li {
 .content {
   flex: 2;
   display: flex;
+  align-items: flex-start;
 }
 .footer {
   grid-area: footer;
@@ -754,12 +755,13 @@ li {
 }
 .form__group {
   margin: 0 auto;
+  padding: 0 5.8rem;
 }
 .form__group--button {
   position: sticky;
   bottom: 0;
   background: #fafafa;
-  padding: 10px 0;
+  padding: 2rem 5.8rem;
 }
 .form__group--margin-top {
   margin-top: 3rem;
@@ -768,7 +770,7 @@ li {
   display: block;
   font-size: 1.8rem;
   font-weight: 600;
-  margin: 1.8rem auto;
+  margin: 1rem auto;
   padding-bottom: 0.4rem;
   text-align: left;
 }
@@ -948,4 +950,10 @@ input[type="radio"] {
 .rdt_selected {
   background: black;
   color: white;
+}
+.confirmation__content {
+  margin: 2rem 0;
+}
+.important__title {
+  color: red;
 }
