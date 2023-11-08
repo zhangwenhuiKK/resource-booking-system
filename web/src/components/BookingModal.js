@@ -9,6 +9,7 @@ import {
 } from "../helpers/bookingForm.js";
 
 const BookingModal = (props) => {
+  const editingMode = window.history.state?.usr?.editingMode;
   const deleteBooking = () => {
     const roomID = props.selectedBooking.roomId;
     const bookingID = props.selectedBooking._id;
@@ -16,8 +17,6 @@ const BookingModal = (props) => {
     props.onCloseBooking();
   };
   const editBooking = () => {
-    const roomID = props.selectedBooking.roomId;
-    const bookingID = props.selectedBooking._id;
     props.onEditBooking(props.selectedBooking);
     props.onCloseBooking();
   };
@@ -27,8 +26,8 @@ const BookingModal = (props) => {
       const name = findDisplayNameofParam(param.field, roomInfo);
       return (
         <p className="modal__paragraph">
-          <strong>{name} </strong>
-          {param.value}
+          <strong className="form__item__name">{name} </strong>
+          <span className="form__item__value">{param.value}</span>
         </p>
       );
     });
@@ -48,33 +47,26 @@ const BookingModal = (props) => {
           className="modal"
         >
           <h3 className="modal__title">Booking Details</h3>
-          <div className="modal__boday">
+          <div className="modal__body">
             <p className="modal__paragraph">{roomInfo?.name}</p>
             <p className="modal__paragraph">
               {`${momentTimezone
-                .tz(props.selectedBooking["bookingStart"], "Asia/Shanghai")
+                .tz(props.selectedBooking["bookingStart"], "Europe/Brussels").local()
                 .format("MMM D, YYYY hh:mma")} to ${momentTimezone
-                .tz(props.selectedBooking["bookingEnd"], "Asia/Shanghai")
-                .format("MMM D, YYYY hh:mma")}`}
-              {/* <p className="modal__paragraph">
-                {`${momentTimezone
-                  .tz(props.selectedBooking["bookingStart"], "Asia/Shanghai")
-                  .format("MMMM Do, YYYY")} to ${momentTimezone
-                  .tz(props.selectedBooking["bookingEnd"], "Asia/Shanghai")
-                  .format("MMMM Do, YYYY")}`}
-              </p> */}
+                  .tz(props.selectedBooking["bookingEnd"], "Europe/Brussels").local()
+                  .format("MMM D, YYYY hh:mma")}`}
             </p>
             <p className="modal__paragraph">
-              <strong>Creator </strong>
-              {`${props.selectedBooking["firstName"]} ${props.selectedBooking["lastName"]}`}
+              <strong  className="form__item__name">Creator </strong>
+              <span className="form__item__value">{`${props.selectedBooking["firstName"]} ${props.selectedBooking["lastName"]}`}</span>
             </p>
             <p className="modal__paragraph">
-              <strong>Email </strong>
-              {props.selectedBooking["email"]}
+              <strong className="form__item__name">Email </strong>
+              <span className="form__item__value">{props.selectedBooking["email"]}</span>
             </p>
             <p className="modal__paragraph">
-              <strong>Group </strong>
-              {props.selectedBooking["group"]}
+              <strong className="form__item__name">Group </strong>
+              <span className="form__item__value">{props.selectedBooking["group"]}</span>
             </p>
             {renderOtherParams()}
             {/* <p className="modal__paragraph">
@@ -91,8 +83,8 @@ const BookingModal = (props) => {
             Contact
           </a>
 
-          <Button onClick={editBooking} text={`Edit`} />
-          <Button onClick={deleteBooking} text={`Delete`} />
+          {!editingMode && <><Button onClick={editBooking} text={`Edit`} />
+            <Button onClick={deleteBooking} text={`Delete`} /></>}
 
           <Button
             className="button__close button--alternative"

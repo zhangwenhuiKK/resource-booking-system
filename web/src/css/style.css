@@ -391,10 +391,22 @@ td.rdtYear:hover {
   margin: 1.5rem 0;
 }
 .modal__body {
-  font-size: 2rem;
+  /* font-size: 2rem;
   font-weight: 300;
   margin: 0 0 3rem 0;
-  word-break: break-all;
+  word-break: break-all; */
+  max-height: 500px;
+  overflow: auto;
+  min-width: 600px;
+  max-width: 800px;
+
+}
+strong.form__item__name {
+  width: 40%;
+  padding: 0 16px 0 0;
+}
+span.form__item__value {
+  width: 60%;
 }
 .nav {
   font-family: "proxima-nova", sans-serif;

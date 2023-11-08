@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import momentTimezone from "moment-timezone";
 
 const formatAssetName = asset => {
   if (asset === 'opWalls') {
@@ -23,20 +24,28 @@ const dailyBookings = (currentDate, roomBookings) => {
     (
       booking // Check if the booking is for the current date
     ) =>
-      moment(booking.bookingStart).format('YYYY-MM-DD') ===
-      moment(currentDate).format('YYYY-MM-DD')
+    momentTimezone.tz(booking.bookingStart,'Europe/Brussels').local().format('YYYY-MM-DD') ===
+    momentTimezone(currentDate).format('YYYY-MM-DD')
   )
   return filteredBookings
 }
 
 // A function to take the bookings for a particular room on a given date and insert them into an array which maps each hour of that day
 const bookingArray = (filteredBookings) => {
+  const localedBookings = filteredBookings.map(booking=>{
+    const localbookingStart= momentTimezone.tz(booking.bookingStart,'Europe/Brussels').local(),localbookingEnd =  momentTimezone.tz(booking.bookingEnd,'Europe/Brussels').local()
+    return {
+    ...booking,
+    bookingStart:localbookingStart,
+    startHour:localbookingStart.format('H.mm'),
+    bookingEnd:localbookingEnd
+  }})
   // An array from 1 to 24 representing each hour of the day
   let dayHours = [...Array(24).keys()]
 
-  filteredBookings.forEach(booking => {
-    let startTime = booking.startHour
-    let duration = booking.duration
+  localedBookings.forEach(booking => {
+    let startTime = parseFloat(booking.startHour)
+    let duration = parseFloat( booking.duration)
     let finalHour = startTime + duration
 
     // Push each booking into the relevant hour in the 24 hour array

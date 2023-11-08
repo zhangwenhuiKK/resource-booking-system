@@ -5,10 +5,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "install-server": "cd api && yarn install",
-    "start-server": "cd api && yarn dev",
-    "install-client": "cd web && yarn install",
-    "build-client": "cd web && yarn build",
-    "start-client": "cd web && yarn start"
+    "install-server": "cd api && npm install",
+    "start-server": "cd api && npm run dev",
+    "install-client": "cd web && npm install",
+    "build-client": "cd web && npm run build",
+    "start-client": "cd web && npm run start"
   }
 }

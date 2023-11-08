@@ -7,10 +7,10 @@ import { findRoomInfo } from "../helpers/bookingForm.js";
 function BookingElement({ bookingData, onDeleteBooking, roomData }) {
   const roomInfo = findRoomInfo(bookingData.roomId, roomData);
   const startTime = momentTimezone
-    .tz(bookingData.bookingStart, "Asia/Shanghai")
+    .tz(bookingData.bookingStart, "Europe/Brussels").local()
     .format("h.mma");
   const endTime = momentTimezone
-    .tz(bookingData.bookingEnd, "Asia/Shanghai")
+    .tz(bookingData.bookingEnd, "Europe/Brussels").local()
     .format("h.mma");
 
   return (

@@ -34,10 +34,10 @@ function BookingForm({
     if (editingMode) {
       res = {
         startTime: `${momentTimezone
-          .tz(selectedBooking["bookingStart"], "Asia/Shanghai")
+          .tz(selectedBooking["bookingStart"], "Europe/Brussels").local()
           .format("HH:mm")}`,
         endTime: `${momentTimezone
-          .tz(selectedBooking["bookingEnd"], "Asia/Shanghai")
+          .tz(selectedBooking["bookingEnd"], "Europe/Brussels").local()
           .format("HH:mm")}`,
         group: selectedBooking.group,
       };
