@@ -34,11 +34,9 @@ const dailyBookings = (currentDate, roomBookings) => {
 // A function to take the bookings for a particular room on a given date and insert them into an array which maps each hour of that day
 const bookingArray = (filteredBookings) => {
   const localedBookings = filteredBookings.map((booking) => {
-    const localbookingStart = localTime(booking.bookingStart);
-    return {
+     return {
       ...booking,
-      bookingStart: localbookingStart,
-      startHour: localbookingStart.format("H.mm"),
+      bookingStart: localTime(booking.bookingStart),
       bookingEnd: localTime(booking.bookingEnd),
     };
   });
@@ -46,40 +44,29 @@ const bookingArray = (filteredBookings) => {
   let dayHours = [...Array(24).keys()];
 
   localedBookings.forEach((booking) => {
-    let startTime = parseFloat(booking.startHour);
-    let duration = parseFloat(booking.duration);
-    let finalHour = startTime + duration;
+    const startHour = parseFloat(`${booking.bookingStart.format("H")}.${booking.bookingStart.format("mm") / 60 * 10}`), endHour = parseFloat(`${booking.bookingEnd.format("H")}.${booking.bookingEnd.format("mm") / 60 * 10}`)
+    const loopStart = Math.floor(startHour), loopEnd = Math.ceil(endHour);
 
     // Push each booking into the relevant hour in the 24 hour array
     // Loop from the beginning of the start hour to the end of the final hour (rounding half hours)
-    for (let i = Math.floor(startTime); i < Math.ceil(finalHour); i++) {
+    for (let i = loopStart; i <= loopEnd; i++) {
       // Create a copy of the booking to customise for each hour
       let bookingData = Object.assign({}, booking);
-
-      // Check if the total booking is half-hour long and begins on the half hour
-      if (duration === 0.5 && startTime % 1 !== 0) {
-        bookingData.secondHalfHour = true;
-        // Check if the total booking is half-hour long and begins on the hour
-      } else if (duration === 0.5 && startTime % 1 === 0) {
+      if (i + 0.5 > startHour && i + 0.5 <= endHour) {
         bookingData.firstHalfHour = true;
-        // If the booking is longer than half an hour
-      } else {
-        // Check if the booking starts on the half hour
-        if (i === Math.floor(startTime) && startTime % 1 !== 0) {
-          bookingData.secondHalfHour = true;
-        }
-        // Check if the booking ends on the half hour
-        if (i === Math.ceil(finalHour - 1) && finalHour % 1 !== 0) {
-          bookingData.firstHalfHour = true;
-        }
       }
-
+      if (i + 1 > startHour && i + 1 <= endHour) {
+        bookingData.secondHalfHour = true;
+      }
       // Add the booking object to the relevant hour in the 24 hour array
       // If there is already a booking in that hour, enter the second booking as the second item in an array
-      dayHours[i] =
-        typeof dayHours[i] == "number"
-          ? bookingData
-          : [dayHours[i], bookingData];
+      if (bookingData.firstHalfHour || bookingData.secondHalfHour) {
+        dayHours[i] =
+          typeof dayHours[i] == "number"
+            ? bookingData
+            : [dayHours[i], bookingData];
+      }
+
     }
   });
 

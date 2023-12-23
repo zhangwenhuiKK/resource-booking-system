@@ -40,9 +40,7 @@ const rowMapper = (dayHours, props) => {
         : bookingData[1];
 
       tableRow.push(
-        // <table className="table--booking--split">
-        //   <tbody>
-        //     <tr>
+
         <td className={`table__cell table__cell--booked`} key={i}>
           <span
             onClick={() => props.onShowBooking(firstBookingData)}
@@ -61,16 +59,24 @@ const rowMapper = (dayHours, props) => {
             &nbsp;
           </span>
         </td>
-        // <td className={`table__cell table__cell--booked`}>
-
-        // </td>
-        //     </tr>
-        //   </tbody>
-        // </table>
       );
       // If there is a booking object, add a <td> element with custom class name to enable stlying
+    } else if(bookingData.firstHalfHour&&bookingData.secondHalfHour){
+       // situation - whole hour booked
+       tableRow.push(
+        <td className={`table__cell table__cell--booked `} key={i}>
+          <span
+            onClick={() => props.onShowBooking(bookingData)}
+            className={`table__link--booked table__cell--${bookingData.group // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
+              .replace(/ /g, "-")
+              .toLowerCase()}`}
+          >
+            &nbsp;
+          </span>
+        </td>
+      );
+    }else if (bookingData.firstHalfHour) {
       // situation - first half hour booked
-    } else if (bookingData.firstHalfHour) {
       tableRow.push(
         <td className={`table__cell table__cell--booked `} key={i}>
           <span
@@ -115,21 +121,7 @@ const rowMapper = (dayHours, props) => {
           </span>
         </td>
       );
-    } else if (bookingData.duration >= 1) {
-      // situation - whole hour booked
-      tableRow.push(
-        <td className={`table__cell table__cell--booked `} key={i}>
-          <span
-            onClick={() => props.onShowBooking(bookingData)}
-            className={`table__link--booked table__cell--${bookingData.group // Class name will show the business unit that made the booking, and whether the <td> element should be fully shaded, or half shaded (indicating a half-hour booking)
-              .replace(/ /g, "-")
-              .toLowerCase()}`}
-          >
-            &nbsp;
-          </span>
-        </td>
-      );
-    }
+    } 
   }
   return tableRow;
 };
@@ -144,20 +136,6 @@ const RoomRow = (props) => (
       >
         {props.room.name}
       </Link>
-      {/* <ul>
-        {Object.keys(props.room.assets).map(
-          (asset) =>
-            props.room.assets[asset] && (
-              <li
-                key={asset}
-                onClick={props.onShowBooking}
-                className="table__data--asset"
-              >
-                {formatAssetName(asset)}
-              </li>
-            )
-        )}
-      </ul> */}
     </th>
     {rowMapper(bookingArray(dailyBookings(props.date, props.bookings)), props)}
   </tr>

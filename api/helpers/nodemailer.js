@@ -1,22 +1,23 @@
 const nodemailer = require('nodemailer');
 
-// create a transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
-    host: 'smtp.example.com',
-    port: 465,
-    secure: true, // true for 465, false for other ports
-    auth: {
-        user: 'username', // generated ethereal user
-        pass: 'password' // generated ethereal password
-    }
-});
+const sendMail= async ({subject, email, content }) => {
+    const transporter = await nodemailer.createTransport({
+        service: 'QQ', 
+        secureConnection: true, // SSL安全链接
+        auth: {
+            //发送者的账户密码
+            user: process.env.EMAIL_USER, //账户
+            pass: process.env.EMAIL_PASS, //smtp授权码，到邮箱设置下获取
+        },
+    });
+   
+    const info =await transporter.sendMail({
+        from: process.env.EMIAL_SENDER, // 发送者昵称和地址
+        to: email, // 接收者的邮箱地址
+        subject: subject, // 邮件主题
+        text: content,
+    });
+    console.log('sending email',info)
+};
 
-// send mail with defined transport object
-const sendMail = ()=>transporter.sendMail({
-    from: '"Fred Foo 👻" <foo@example.com>', // sender address
-    to: 'bar@example.com, baz@example.com', // list of receivers
-    subject: 'Hello ✔', // Subject line
-    text: 'Hello world?', // plain text body
-    html: '<b>Hello world?</b>' // html body
-});
 module.exports = sendMail

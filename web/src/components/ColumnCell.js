@@ -56,9 +56,20 @@ const ColumnCell = (props) => {
         </tbody>
       </table>
     );
-
-    // If there is a booking object, but only for the first half of the hour, return a nested table to split the table data for that cell into two rows.
-  } else if (bookingData.firstHalfHour) {
+  } else if(bookingData.firstHalfHour && bookingData.secondHalfHour){
+    // If there is a booking object for the full hour, return a single <td> cell
+      columnData = (
+        <td
+          onClick={() => props.onShowBooking(bookingData)}
+          className={`table__cell--${bookingData.group
+            .replace(/ /g, "-")
+            .toLowerCase()}`}
+        >
+          {bookingData.group}
+        </td>
+      ); 
+  }
+  else if (bookingData.firstHalfHour) {
     columnData = (
       <table className="table--nested">
         <tbody>
@@ -78,7 +89,6 @@ const ColumnCell = (props) => {
         </tbody>
       </table>
     );
-
     // If there is a booking object, but only for the second half of the hour, return a nested table to split the table data for that cell into two rows
   } else if (bookingData.secondHalfHour) {
     columnData = (
@@ -101,19 +111,7 @@ const ColumnCell = (props) => {
       </table>
     );
 
-    // If there is a booking object for the full hour, return a single <td> cell
-  } else {
-    columnData = (
-      <td
-        onClick={() => props.onShowBooking(bookingData)}
-        className={`table__cell--${bookingData.group
-          .replace(/ /g, "-")
-          .toLowerCase()}`}
-      >
-        {bookingData.group}
-      </td>
-    );
-  }
+  } 
   return columnData;
 };
 

@@ -1,6 +1,5 @@
 import React from "react";
 import ReactModal from "react-modal";
-import momentTimezone from "moment-timezone";
 import Button from "./Button";
 import {
   findRoomInfo,
@@ -11,7 +10,6 @@ import { Modal } from "antd";
 const { confirm } = Modal;
 
 const BookingModal = (props) => {
-  //const editingMode = window.history.state?.usr?.editingMode;
   const deleteBooking = () => {
     const roomID = props.selectedBooking.roomId;
     const bookingID = props.selectedBooking._id;
