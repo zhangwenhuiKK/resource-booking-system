@@ -32,7 +32,9 @@ function FilterElement({
       "all",
     ].map((category) => {
       return (
-        <Radio value={category}>{category == "all" ? "All" : category}</Radio>
+        <Radio key={category} value={category}>
+          {category == "all" ? "All" : category}
+        </Radio>
       );
     });
   return (

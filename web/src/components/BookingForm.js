@@ -11,6 +11,7 @@ import {
   endTimeSelectOptions,
 } from "../helpers/bookingForm";
 import ConfirmationModal from "./ConfirmationModal";
+import { localTime } from "../helpers/common";
 
 function BookingForm({
   onEditBooking,
@@ -33,12 +34,8 @@ function BookingForm({
     let res;
     if (editingMode) {
       res = {
-        startTime: `${momentTimezone
-          .tz(selectedBooking["bookingStart"], "Europe/Brussels").local()
-          .format("HH:mm")}`,
-        endTime: `${momentTimezone
-          .tz(selectedBooking["bookingEnd"], "Europe/Brussels").local()
-          .format("HH:mm")}`,
+        startTime: `${localTime(selectedBooking.bookingStart).format("HH:mm")}`,
+        endTime: `${localTime(selectedBooking.bookingEnd).format("HH:mm")}`,
         group: selectedBooking.group,
       };
       (selectedBooking.params || []).forEach((p) => {
@@ -140,7 +137,7 @@ function BookingForm({
   const renderMoreDetails = () => {
     return (roomData.params || []).map((param) => {
       return (
-        <div className="form__group">
+        <div key={param.field} className="form__group">
           <label className="form__label form__label--booking">
             {param.name}
             <input

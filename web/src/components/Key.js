@@ -16,8 +16,12 @@ const Key = (props) => (
       <p className="key__description">Micas</p>
     </div>
     <div className="key__group">
-      <span className="key__square table__cell--chemistry"></span>
+      <span className="key__square table__cell--biomechanics"></span>
       <p className="key__description">Biomechanics</p>
+    </div>
+    <div className="key__group">
+      <span className="key__square table__cell--chemistry"></span>
+      <p className="key__description">Chemistry</p>
     </div>
     <div className="key__group">
       <span className="key__square table__cell--lbm"></span>

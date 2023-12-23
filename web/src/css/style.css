@@ -134,8 +134,8 @@ input[type="radio"] {
   width: 12rem;
 }
 .button {
-  background: #ed1c24;
-  border: 0.1rem solid #ed1c24;
+  background: #0070ba;
+  border: 0.1rem solid #0070ba;
   color: #fafafa;
   cursor: pointer;
   font-family: "raleway", sans-serif;
@@ -148,8 +148,8 @@ input[type="radio"] {
 }
 .button:hover {
   background: #fafafa;
-  border: 0.1rem solid #ed1c24;
-  color: #ed1c24;
+  border: 0.1rem solid #1677ff;
+  color: #1677ff;
 }
 .button--alternative {
   background: #fafafa;
@@ -228,7 +228,7 @@ input[type="radio"] {
   position: relative;
 }
 .rdtToday:before {
-  border-bottom: 0.7rem solid #ed1c24;
+  border-bottom: 0.7rem solid #1677ff;
   border-left: 0.7rem solid transparent;
   bottom: 0.4rem;
   content: "";
@@ -237,7 +237,7 @@ input[type="radio"] {
   right: 0.4rem;
 }
 .rdtActive {
-  background: #ed1c24;
+  background: #1677ff;
   color: #fff;
 }
 .rdtActive:hover {
@@ -304,7 +304,7 @@ td.rdtYear:hover {
   font-weight: 500;
 }
 .rdtToday::before {
-  border-bottom: 7px solid #ed1c24;
+  border-bottom: 7px solid #d7002f;
 }
 .filter {
   background: #fafafa;
@@ -399,7 +399,10 @@ td.rdtYear:hover {
   overflow: auto;
   min-width: 600px;
   max-width: 800px;
-
+}
+.modal__footer {
+  display: flex;
+  justify-content: flex-end;
 }
 strong.form__item__name {
   width: 40%;
@@ -416,16 +419,13 @@ span.form__item__value {
   margin: 0.4rem 1.6rem;
 }
 .nav__link {
-  border-bottom: 2px solid #f4f4f4;
   color: #f4f4f4;
   font-size: 1.8rem;
   font-weight: 600;
   margin-left: 4rem;
   padding: 2rem 0 1rem 0;
 }
-.nav__link:hover {
-  font-weight: 700;
-}
+
 .table {
   background: #fafafa;
   border: 0.1rem solid #cecece;
@@ -466,12 +466,12 @@ span.form__item__value {
   padding: 1rem;
 }
 .table__row--header {
-  background: #cecece;
+  background: #e6e6e6;
   margin: 0 auto;
   padding: 0;
 }
 .table__row--header:hover {
-  background: #cecece;
+  background: #e6e6e6;
 }
 .table__row--subheader {
   background: #f4f4f4;
@@ -546,50 +546,50 @@ span.form__item__value {
   width: 50%;
 }
 .table__cell--mns {
-  background: #dd1895;
+  background: #fcb5ac;
 }
 
 .table__cell--cmacs {
-  background: #e2cb1c;
+  background: #b99095;
 }
 
 .table__cell--micas {
-  background: #ff75a5;
+  background: #cdd193;
 }
 
 .table__cell--biomechanics {
-  background: #bd7cd3;
+  background: #98ce00;
 }
 
 .table__cell--chemistry {
   background: #59c794;
 }
 .table__cell--lbm {
-  background: #5304b3;
+  background: #e56997;
 }
 .table__cell--maps {
-  background: #570811;
+  background: #b95c50;
 }
 .table__cell--physics {
-  background: #40c8d7;
+  background: #d4f1f4;
 }
 .table__cell--nerf {
-  background: #0a4719;
+  background: #e1c340;
 }
 .table__cell--smart {
-  background: #fd0008;
+  background: #189ab4;
 }
 .table__cell--uhasselt {
-  background: #695507;
+  background: #75e6da;
 }
 .table__cell--wavecore {
-  background: #112ca6;
+  background: #05445e;
 }
 .table__cell--mebios {
-  background: #141414;
+  background: #67595e;
 }
 .table__cell--others {
-  background: #a8a4ab;
+  background: #bd97cb;
 }
 
 html {
@@ -626,18 +626,23 @@ li {
   width: 100%;
 }
 .wrapper__form {
-  background: #fafafa;
-  -webkit-box-shadow: 0px 2px 5px 0px #cecece;
+  display: flex;
+  align-items: flex-start;
+}
+.signin_form_wrapper {
+  background-color: white;
+  padding: 50px;
   box-shadow: 0px 2px 5px 0px #cecece;
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto auto auto auto;
-  margin: 4rem auto;
-  color: #1c1c1c;
-  padding: 3rem;
-  width: 40rem;
-  height: auto;
+  margin-left: 25%;
+  margin-right: 76px;
+  margin-top: 50px;
+}
+.signup_form_wrapper {
+  padding: 50px;
+  background-color: white;
+  box-shadow: 0px 2px 5px 0px #cecece;
+  margin-right: 50px;
+  margin-top: 50px;
 }
 .wrapper__content {
   display: grid;
@@ -666,7 +671,7 @@ li {
   grid-row: 2;
 }
 .header {
-  background: #1c1c1c;
+  background: linear-gradient(90deg, #0070ba, #1546a0);
   -webkit-box-shadow: 0px 2px 5px 0px #cecece;
   box-shadow: 0px 2px 5px 0px #cecece;
   grid-area: header;
@@ -700,14 +705,14 @@ li {
   margin: 0 3rem;
 }
 .header__heading--sub {
-  border-bottom: 0.2rem solid #1c1c1c;
+  border-bottom: 0.2rem solid #7c7c7c;
   font-size: 2.6rem;
   font-weight: 700;
   margin: 2.2rem 0 4.2rem 0;
   padding: 1rem 0;
 }
 .header__heading--sub--alt {
-  border-bottom: 0.2rem solid #1c1c1c;
+  text-align: center;
   font-size: 2.6rem;
   font-weight: 700;
   padding: 2rem 0 1rem 0;
@@ -764,6 +769,9 @@ li {
 .form--signin {
   margin: 1rem auto;
   width: 30rem;
+}
+.sign_in_form__group {
+  margin: 0 auto;
 }
 .form__group {
   margin: 0 auto;
