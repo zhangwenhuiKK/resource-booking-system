@@ -25,6 +25,7 @@ const Calendar = (props) => {
   };
   return (
     <Datetime
+      value={props.date}
       dateFormat="YYYY-MM-DD"
       timeFormat={false}
       input={false}

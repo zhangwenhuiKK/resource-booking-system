@@ -3,15 +3,12 @@ import moment from "moment";
 import momentTimezone from "moment-timezone";
 import Button from "./Button";
 import { findRoomInfo } from "../helpers/bookingForm.js";
+import { localTime } from "../helpers/common";
 
 function BookingElement({ bookingData, onDeleteBooking, roomData }) {
   const roomInfo = findRoomInfo(bookingData.roomId, roomData);
-  const startTime = momentTimezone
-    .tz(bookingData.bookingStart, "Europe/Brussels").local()
-    .format("h.mma");
-  const endTime = momentTimezone
-    .tz(bookingData.bookingEnd, "Europe/Brussels").local()
-    .format("h.mma");
+  const startTime = localTime(bookingData.bookingStart).format("h.mma");
+  const endTime = localTime(bookingData.bookingEnd).format("h.mma");
 
   return (
     <div className="booking__box">

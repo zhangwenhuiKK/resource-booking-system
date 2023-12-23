@@ -77,6 +77,13 @@ module.exports = {
   initialize: passport.initialize(),
   signUp,
   signIn: passport.authenticate('local', { session: false }),
-  requireJWT: passport.authenticate('jwt', { session: false }),
+  requireJWT:passport.authenticate('jwt', { session: false }),
+  // requireJWT:(req, res, next) =>  {passport.authenticate('jwt', { session: false }, (err, data, info) => {
+  //    if (err || info) {
+  //     next(new Error('Unauthorized.'));
+  //   } else {
+  //     next();
+  //   }
+  // })(req, res, next)},
   signJWTForUser
 }

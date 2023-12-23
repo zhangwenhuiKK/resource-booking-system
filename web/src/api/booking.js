@@ -1,20 +1,18 @@
-import moment from "moment";
 import momentTimezone from "moment-timezone";
 import api from "./init";
 
-// Function to receive booking data (AEST) and convert to JS Date object
+// Function to receive booking data (CET) and convert to JS Date object
 // Data expected in [year, month, date, hours, seconds] format
 const dateUTC = (dataArray) => {
-  // Ensure date data is saved in AEST and then converted to a Date object in UTC
-  return momentTimezone(dataArray).tz("Europe/Brussels").toDate();
+  // Ensure date data is saved in CET and then converted to a Date object
+  return momentTimezone(dataArray).utc().toDate();
 };
 
 // Make a room booking
 export function makeBooking(data, existingBookings) {
-  // Convert booking data to UTC Date objects
+  // Convert booking data to Date objects
   let bookingStart = dateUTC(data.startDate);
   let bookingEnd = dateUTC(data.endDate);
-
   // Convert booking Date objects into a number value
   let newBookingStart = bookingStart.getTime();
   let newBookingEnd = bookingEnd.getTime();
@@ -109,7 +107,7 @@ export function editBooking(data, existingBookings) {
   if (!bookingClash && validDate && validRecurring) {
     return api
       .put(`/rooms/edit/${data.roomId}/${data.bookingId}`, {
-        bookingStart: bookingStart,
+        bookingStart: bookingStart, //will be saved as utc time
         bookingEnd: bookingEnd,
         group: data.group,
         purpose: data.purpose,

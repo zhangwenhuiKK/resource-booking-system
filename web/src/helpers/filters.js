@@ -39,7 +39,7 @@ export const onFilterByCategory = (param, filteredData) => {
   if (param === "all") {
     return filteredData;
   } else {
-    return filteredData.filter((room) => room.category === param);
+    return (filteredData || []).filter((room) => room.category === param);
   }
 };
 

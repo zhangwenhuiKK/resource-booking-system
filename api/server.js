@@ -20,13 +20,13 @@ server.use(authMiddleware.initialize)
 server.use([require('./routes/auth'), require('./routes/rooms')])
 
 // Error handling
-// server.use((error, req, res, next) => {
-//   res.json({
-//     error: {
-//       message: error.message
-//     }
-//   })
-// })
+server.use((error, req, res, next) => {
+  res.json({
+    error: {
+      message: error.message
+    }
+  })
+})
 
 // Read port and host from the configuration file
 server.listen(config.port, config.host, error => {
