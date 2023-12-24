@@ -2,7 +2,7 @@ import axios from "axios";
 import { rememberToken, getValidToken } from "./token";
 
 const baseURL = process.env.REACT_APP_API_URL || "http://localhost:7000";
-
+console.log('baseURL:',baseURL,'env',process.env)
 // Create an axios instance
 const api = axios.create({
   baseURL,
