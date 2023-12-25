@@ -1,5 +1,6 @@
 const express = require('express')
 const moment = require('moment')
+const momentTimezone = require('moment-timezone');
 const sendMail = require('../helpers/nodemailer')
 const Room = require('../models/Room')
 const { requireJWT } = require('../middleware/auth')
@@ -26,17 +27,17 @@ router.post('/rooms', requireJWT, (req, res) => {
     })
 })
 const localTime = (time) => {
-  return moment.utc(time).local();
+  return momentTimezone.utc(time).tz(process.env.TIME_ZONE);
 };
 // Function to convert UTC JS Date object to a Moment.js object in UTC
 const dateUTC = dateString => {
   return moment.utc(dateString)
 }
 
-const notifyCreatorBookingResult = (bookingStart,bookingEnd,email,roomName)=>{
+const notifyCreatorBookingResult = (bookingStart,bookingEnd,email,roomName,isEditing=false)=>{
   const startTime = localTime(bookingStart), endTime = localTime(bookingEnd)
   sendMail({
-    subject: `You have reserved ${roomName} for ${startTime.format("MMM D, YYYY")}, from ${startTime.format(
+    subject: `You have ${isEditing? 'updated your reservation of':'reserved'} ${roomName} for ${startTime.format("MMM D, YYYY")}, from ${startTime.format(
       "hh:mma")} to ${endTime.format("hh:mma")}.`,
     email: email,
     content: "Auto sent by the server. Please don't reply to this email."
@@ -194,7 +195,7 @@ router.put('/rooms/edit/:id/:bookingId', requireJWT, (req, res) => {
         'bookings.$.bookingStart': req.body.bookingStart,
         'bookings.$.bookingEnd': req.body.bookingEnd,
         // 'bookings.$.startHour': dateUTC(req.body.bookingStart).format('H.mm'),
-        'bookings.$.duration': durationHours(req.body.bookingStart, req.body.bookingEnd),
+        'bookings.$.duration': durationHours(req.body.bookingStart, req.body.bookingEnd,true),
         'bookings.$.recurring': req.body.recurring,
         'bookings.$.group': req.body.group,
         'bookings.$.purpose': req.body.purpose,

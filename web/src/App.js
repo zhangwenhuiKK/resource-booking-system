@@ -319,7 +319,7 @@ function App() {
           <div className="wrapper__content">
             <div className="header__page">
               <h2 className="header__heading header__heading--sub">
-                {moment(calendarDate).format("MMMM Do YYYY")}
+                {moment(calendarDate).format("dddd, MMMM Do YYYY")}
               </h2>
             </div>
             <div className="main__content">

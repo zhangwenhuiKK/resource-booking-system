@@ -17,7 +17,7 @@ const sendMail= async ({subject, email, content }) => {
         subject: subject, // 邮件主题
         text: content,
     });
-    console.log('sending email',info)
+    //console.log('sending email',info)
 };
 
 module.exports = sendMail

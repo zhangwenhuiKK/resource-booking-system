@@ -2,70 +2,70 @@ const Room = require('./Room')
 
 Room.create([
   {
-    name: 'Slot 1',
+    name: 'Cleanroom Slot 1',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 2',
+    name: 'Cleanroom Slot 2',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 3',
+    name: 'Cleanroom Slot 3',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 4',
+    name: 'Cleanroom Slot 4',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 5',
+    name: 'Cleanroom Slot 5',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 6',
+    name: 'Cleanroom Slot 6',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 7',
+    name: 'Cleanroom Slot 7',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 8',
+    name: 'Cleanroom Slot 8',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 9',
+    name: 'Cleanroom Slot 9',
     description:'',
     category: 'Cleanroom',
     features: {},
     params:[]
   },
   {
-    name: 'Slot 10',
+    name: 'Cleanroom Slot 10',
     description:'',
     category: 'Cleanroom',
     features: {},

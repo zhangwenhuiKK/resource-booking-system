@@ -56,7 +56,6 @@ export const endTimeSelectOptions = [
   <option value="19:30">7:30pm</option>,
   <option value="20:00">8:00pm</option>,
   <option value="20:30">8:30pm</option>,
-  <option value="21:00">9:00pm</option>,
 ];
 
 // formats the time extracted from the time inputs into an array, eg 8:30 => [8, 30]
