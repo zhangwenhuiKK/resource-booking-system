@@ -195,7 +195,7 @@ router.put('/rooms/edit/:id/:bookingId', requireJWT, (req, res) => {
         'bookings.$.bookingStart': req.body.bookingStart,
         'bookings.$.bookingEnd': req.body.bookingEnd,
         // 'bookings.$.startHour': dateUTC(req.body.bookingStart).format('H.mm'),
-        'bookings.$.duration': durationHours(req.body.bookingStart, req.body.bookingEnd,true),
+        'bookings.$.duration': durationHours(req.body.bookingStart, req.body.bookingEnd),
         'bookings.$.recurring': req.body.recurring,
         'bookings.$.group': req.body.group,
         'bookings.$.purpose': req.body.purpose,
@@ -207,7 +207,7 @@ router.put('/rooms/edit/:id/:bookingId', requireJWT, (req, res) => {
     .then(room => {
       console.log('Successfuly updated your booking')
       res.status(201).json(room)
-      notifyCreatorBookingResult(req.body.bookingStart, req.body.bookingEnd,req.user.email,room.name)
+      notifyCreatorBookingResult(req.body.bookingStart, req.body.bookingEnd,req.user.email,room.name,true)
     })
     .catch(error => {
       res.status(400).json({ error })
