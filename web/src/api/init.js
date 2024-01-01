@@ -1,11 +1,13 @@
 import axios from "axios";
 import { rememberToken, getValidToken } from "./token";
 
-
-const baseURL = process.env.NODE_ENV === "development" ? "http://localhost:7000":process.env.BACKEND_BASE_URL;
+const baseURL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:7000"
+    : process.env.BACKEND_BASE_URL;
 // Create an axios instance
 const api = axios.create({
-  baseURL,
+  baseURL: process.env.BACKEND_BASE_URL,
 });
 
 export function setToken(token) {
