@@ -1,14 +1,15 @@
 import axios from "axios";
 import { rememberToken, getValidToken } from "./token";
 
-axios.defaults.baseURL =
+const baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:7000"
-    : "https://resource-booking-system.onrender.com";
+    : process.env.BACKEND_BASE_URL;
 
-console.log("axios baseURL:", axios.defaults.baseURL, "env:", process.env);
 // Create an axios instance
-const api = axios.create();
+const api = axios.create({
+  baseURL,
+});
 
 export function setToken(token) {
   // saves token to local storage
