@@ -4,7 +4,7 @@ import { rememberToken, getValidToken } from "./token";
 axios.defaults.baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:7000"
-    : process.env.BACKEND_BASE_URL;
+    : "https://resource-booking-system.onrender.com";
 
 console.log("axios baseURL:", axios.defaults.baseURL, "env:", process.env);
 // Create an axios instance
